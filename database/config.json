@@ -5,8 +5,7 @@
     "port": "6606",
     "database": "advokate_earn_dev",
     "username": "root",
-    "password": "Admin@123",
-    "timezone": "+08: 00"
+    "password": "Admin@123"
   },
   "test": {
     "username": "root",
