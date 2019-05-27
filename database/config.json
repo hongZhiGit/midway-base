@@ -1,0 +1,25 @@
+{
+  "development": {
+    "dialect": "mysql",
+    "host": "152.136.16.132",
+    "port": "6606",
+    "database": "advokate_earn_dev",
+    "username": "root",
+    "password": "Admin@123",
+    "timezone": "+08: 00"
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}
