@@ -4,7 +4,10 @@
   "description": "微信统一管理后台",
   "private": true,
   "dependencies": {
+    "@types/flake-idgen": "^0.1.30",
+    "biguint-format": "^1.0.1",
     "egg-scripts": "^2.10.0",
+    "flake-idgen": "^1.1.2",
     "midway": "^1.0.0",
     "mysql2": "^1.6.5",
     "reflect-metadata": "^0.1.13",

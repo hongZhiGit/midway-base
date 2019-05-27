@@ -13,14 +13,18 @@ import {
   DeletedAt,
   DataType
 } from 'sequelize-typescript';
+import FlakeId = require('flake-idgen');
+import intformat = require('biguint-format');
 const { BIGINT } = DataType;
+const flakeIdgen = new FlakeId({ epoch: 1300000000000 });
 
 @Table
 export class BaseModel extends Model<BaseModel> {
   @Column({
     type: BIGINT,
     primaryKey: true,
-    autoIncrement: false
+    autoIncrement: false,
+    defaultValue: () => intformat(flakeIdgen.next(), 'dec')
   })
   id: string;
 
