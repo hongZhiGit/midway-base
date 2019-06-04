@@ -1,4 +1,4 @@
-import { provide, scope, ScopeEnum, config, init } from 'midway';
+import { provide, scope, ScopeEnum, config } from 'midway';
 import { Sequelize } from 'sequelize-typescript';
 
 interface ISequelizeConfig {
@@ -15,10 +15,12 @@ interface ISequelizeConfig {
   modelFile: string;
 }
 
+export interface IDBContext extends DBContext {}
+
 @scope(ScopeEnum.Singleton)
 @provide('DBContext')
 export class DBContext {
-  static sequelize: Sequelize;
+  sequelize: Sequelize;
 
   @config('sequelize')
   config: ISequelizeConfig;
@@ -26,15 +28,13 @@ export class DBContext {
   @config('env')
   env: string;
 
-  constructor(config: ISequelizeConfig, env: string) {
-    this.config = config;
-    this.env = env;
+  get Transaction() {
+    return this.sequelize.transaction;
   }
 
-  @init()
   async init() {
     await new Promise(resolve => {
-      DBContext.sequelize = new Sequelize({
+      this.sequelize = new Sequelize({
         dialect: 'mysql',
         host: this.config.host,
         timezone: this.config.timezone,
@@ -58,7 +58,7 @@ export class DBContext {
           underscored: true
         }
       });
-      return DBContext.sequelize
+      return this.sequelize
         .authenticate()
         .then(result => {
           console.log('DataBase Connection successfully!');

@@ -4,17 +4,17 @@
  * @Last Modified by: 吴占超
  * @Last Modified time: 2019-05-25 16:36:11
  */
-import { DBContext } from './lib/models/dbcontext';
+import { IDBContext } from './lib/models/dbcontext';
 
-module.exports = app => {
+module.exports = (app: any) => {
   app.beforeStart(async () => {
     console.log('====================================');
     console.log('🚀  Your awesome APP is launching...');
     console.log('====================================');
 
-    const db = new DBContext(app.config.sequelize, app.config.env);
+    const db: IDBContext = await app.applicationContext.getAsync('DBContext');
+    // const db = new DBContext(app.config.sequelize, app.config.env);
     db.init();
-    // console.log(db.sequelize.models);
 
     console.log('====================================');
     console.log(
