@@ -1,6 +1,6 @@
 # midway-advokate-wxapi
 
-微信统一管理后台
+base midway
 
 ## 快速入门
 
@@ -37,6 +37,68 @@ $ npm stop
 
 [midway]: https://midwayjs.org
 
+### 项目结构
+
+```项目结构
+.
+├── README.md
+├── README.zh-CN.md
+├── dist                                ---- 编译后目录
+├── database                            ---- sequelize v5
+│   └── migrations                      ---- db migrations
+│       ├── 20190527062554-init-*.js    ---- init .js文件数据库创建、upd 修改
+│       └── config.json                 ---- config
+├── logs                                ---- 本地日志目录
+│   └── midway6-test                    ---- 日志应用名开头
+│       ├── common-error.log            ---- 错误日志
+│       ├── midway-agent.log            ---- agent 输出的日志
+│       ├── midway-core.log             ---- 框架输出的日志
+│       ├── midway-web.log              ---- koa 输出的日志
+│       └── midway6-test-web.log
+├── package.json
+├── src                                 ---- 源码目录
+│   ├── app                             ---- web 层目录
+│   │   ├── controller                  ---- web 层 controller 目录
+│   │   │   ├── home.ts
+│   │   │   └── user.ts
+│   │   ├── middleware (可选)            ---- web 层中间件目录
+│   │   │   └── trace.ts
+│   │   ├── public (可选)                ---- web 层静态文件目录，可以配置
+│   │   └── view (可选)
+│   │       └── home.tpl                ---- web 层模板
+│   ├── base                            ---- base 封装
+│   │   ├── base.controller.ts
+│   │   ├── base.model.ts
+│   │   └── base.service.ts
+│   ├── config
+│   │   ├── config.default.ts
+│   │   ├── config.local.ts
+│   │   ├── config.prod.ts
+│   │   ├── config.unittest.ts
+│   │   └── plugin.ts
+│   └── lib                             ---- 业务逻辑层目录，自由定义
+│   │   ├── models                      ---- model for sequelize-typescript
+│   │   │   ├── dbcontext.ts            ---- context
+│   │   │   └── user.model.ts           ---- model code helper create
+│   │   ├── param-interface             ---- service param interface for in\out
+│   │   │   └── user.ts                 ---- multiple param for service
+│   │   ├── service                     ---- 业务逻辑层，自由定义
+│   │   │   └── user.ts
+│   │   └── utils                       ---- 常用工具类
+│   │       └── tcmq.ts                 ---- 腾讯云封装provide
+│   ├── interface.ts                    ---- 接口定义文件，自由定义
+│   ├── app.ts                          ---- 应用扩展文件，可选
+│   └── agent.ts                        ---- agent 扩展文件，可选
+├── test
+│   └── app
+│       └── controller
+│           └── home.test.ts
+├── types                               ---- 自定义*.d.ts
+│   └── biguint-format.d.ts
+├── tsconfig.json
+└── tslint.json
+```
+
 ### migration
 
 ```初始化表结构
@@ -51,3 +113,59 @@ npx sequelize db:migrate
 # 可以通过 `db:migrate:undo:all` 回退到初始状态
 # npx sequelize db:migrate:undo:all
 ```
+
+## 开发规范
+
+### 命名规范
+
+1. 文件夹 小写中横线分词
+2. 文件 小写中横线分词
+3. 类名 帕斯卡命名
+4. 接口名 I+帕斯卡命名
+5. 方法名 驼峰命名
+6. 变量名 小驼峰
+7. 常量 全大写下划线分词
+8. 命名要求简洁明了 英文命名，如果不明确命名可以采用，类型命名法 如: string1、string2 不允许其他无意义命名
+9. 代码层级不允许超过 4 级
+10. 鉴于换行等因素 function 不允许超过 60 行
+11. 路由命名优先 restful api 定向 api 采用 soa 命名 路由采用全小写中横线分词
+12. 注释 方法采用 document this 变量使用/\* \*/
+13. private
+14. function param type in I[function]In、out I[function]Out
+15. 文件必须启用 vscode-fileheader
+
+### DataBase
+
+- table\column
+  全小写，下划线分词
+- 主键  
+  id（pk 开头 or sequelize 默认）
+- 默认字段
+  - created_at
+  - updated_at
+  - deleted_at
+- not null
+  - 根据业务值进行默认值设置优先推荐的默认值顺序：''>0>-1>特殊定义
+  - datetime、date、timestamp：按照业务需要为 null 的情况下，尽量作为辅助字段，不作为优先筛选字段，例如搭配 state 字段
+- function  
+  全小写下划线分词，[fun_]开头。根据业务复杂程度尽量不要启用自定义函数。
+- view  
+  全小写下划线分词，[view_]开头。
+- 关系  
+  [表名_id]
+- 常规业务采用三范式原则，交易、金钱、积分相关业务保证数据留痕，以及性能采用反范式。
+
+### 错误码
+
+- 204  
+  前端处理
+- 401  
+  前端处理-权限错误
+- 422
+  后端参数校验错误-message
+- 500
+  前端处理（后端方法错误）
+- 511
+  后端处理（已知错误提示）
+- 512
+  前端处理 (已知错误提示 需要跳转)

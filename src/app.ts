@@ -12,7 +12,8 @@ module.exports = app => {
     console.log('🚀  Your awesome APP is launching...');
     console.log('====================================');
 
-    await new DBContext(app.config.development.sequelize);
+    const db = new DBContext(app.config.sequelize, app.config.env);
+    db.init();
     // console.log(db.sequelize.models);
 
     console.log('====================================');
