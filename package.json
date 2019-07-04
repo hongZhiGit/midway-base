@@ -9,7 +9,9 @@
     "egg-scripts": "^2.10.0",
     "flake-idgen": "^1.1.2",
     "midway": "^1.0.0",
+    "midway-joi-swagger2": "^1.0.24",
     "mysql2": "^1.6.5",
+    "node-jsencrypt": "^1.0.0",
     "reflect-metadata": "^0.1.13",
     "sequelize": "^5.8.6",
     "sequelize-typescript": "^1.0.0-beta.3"

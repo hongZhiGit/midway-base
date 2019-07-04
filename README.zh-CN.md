@@ -77,11 +77,15 @@ $ npm stop
 │   │   ├── config.unittest.ts
 │   │   └── plugin.ts
 │   └── lib                             ---- 业务逻辑层目录，自由定义
+│   │   ├── interfaces                  ---- service param interface for in\out
+│   │   │   └── user.ts                 ---- multiple param for service
+│   │   ├── iocs                        ---- 辅助注入对象
+│   │   │   └── ctx-handler.ts          ---- ctx原有属性处理
 │   │   ├── models                      ---- model for sequelize-typescript
 │   │   │   ├── dbcontext.ts            ---- context
 │   │   │   └── user.model.ts           ---- model code helper create
-│   │   ├── param-interface             ---- service param interface for in\out
-│   │   │   └── user.ts                 ---- multiple param for service
+│   │   ├── schemas                     ---- 导出joi用schemas
+│   │   │   └── user.ts
 │   │   ├── service                     ---- 业务逻辑层，自由定义
 │   │   │   └── user.ts
 │   │   └── utils                       ---- 常用工具类
@@ -169,3 +173,8 @@ npx sequelize db:migrate
   后端处理（已知错误提示）
 - 512
   前端处理 (已知错误提示 需要跳转)
+
+### 2019-07-04
+
+集成 midway-joi-swagger2
+https://github.com/sephirothwzc/midway-joi-swagger2

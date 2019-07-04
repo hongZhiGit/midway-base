@@ -5,9 +5,16 @@
  * @Last Modified time: 2019-05-25 16:36:11
  */
 import { IDBContext } from './lib/models/dbcontext';
+import { wrapper } from 'midway-joi-swagger2';
 
 module.exports = (app: any) => {
   app.beforeStart(async () => {
+    // 配置文件建议从config读取
+    wrapper(app, {
+      title: 'foo',
+      version: 'v1.0.0',
+      description: 'bar'
+    });
     console.log('====================================');
     console.log('🚀  Your awesome APP is launching...');
     console.log('====================================');
@@ -21,6 +28,11 @@ module.exports = (app: any) => {
       `✅  http://${app.config.cluster.listen.hostname}:${
         app.config.cluster.listen.port
       }`
+    );
+    console.log(
+      `✅  http://${app.config.cluster.listen.hostname}:${
+        app.config.cluster.listen.port
+      }/swagger-html`
     );
     console.log('✅  Your awesome APP launched');
     console.log('====================================');

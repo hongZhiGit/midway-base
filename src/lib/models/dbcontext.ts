@@ -28,10 +28,6 @@ export class DBContext {
   @config('env')
   env: string;
 
-  get Transaction() {
-    return this.sequelize.transaction;
-  }
-
   async init() {
     await new Promise(resolve => {
       this.sequelize = new Sequelize({
