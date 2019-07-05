@@ -25,7 +25,7 @@ module.exports = () => {
       return next();
     }
     const schema = ctx.app.joiSchemas[key];
-    await joiValidate(ctx.request.body, schema.body)
+    return joiValidate(ctx.request.body, schema.body)
       .then(result => {
         return joiValidate(ctx.query, schema.query);
       })
@@ -35,9 +35,11 @@ module.exports = () => {
       .then(result => {
         return joiValidate(ctx.request.body, schema.formData);
       })
+      .then(result => {
+        return next();
+      })
       .catch(err => {
-        return ctx.throw(422, JSON.stringify(err));
+        return ctx.throw(422, err);
       });
-    return next();
   };
 };

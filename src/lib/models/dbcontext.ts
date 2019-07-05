@@ -13,6 +13,11 @@ interface ISequelizeConfig {
    * 存储目录，项目目录后缀目录 ts\js
    */
   modelFile: string;
+  dialectOptions?: {
+    useUTC: false;
+    dateStrings: true;
+    typeCast: (field: any, next: () => void) => any;
+  };
 }
 
 export interface IDBContext extends DBContext {}
@@ -52,7 +57,8 @@ export class DBContext {
           paranoid: true,
           charset: 'utf8',
           underscored: true
-        }
+        },
+        dialectOptions: this.config.dialectOptions
       });
       return this.sequelize
         .authenticate()

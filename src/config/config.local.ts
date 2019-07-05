@@ -19,7 +19,18 @@ export const sequelize = {
   username: 'root',
   password: 'Admin@333',
   timezone: '+08:00',
-  modelFile: 'ts'
+  modelFile: 'ts',
+  dialectOptions: {
+    useUTC: false, // for reading from database
+    dateStrings: true,
+    typeCast: (field: any, next: () => void) => {
+      // for reading from database
+      if (field.type === 'DATETIME') {
+        return field.string();
+      }
+      return next();
+    }
+  }
 };
 
 // cluster
