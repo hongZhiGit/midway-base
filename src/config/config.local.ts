@@ -23,7 +23,7 @@ export const sequelize = {
   timezone: '+08:00',
   modelFile: 'ts',
   dialectOptions: {
-    useUTC: false, // for reading from database
+    // useUTC: false, // for reading from database
     dateStrings: true,
     typeCast: (field: any, next: () => void) => {
       // for reading from database

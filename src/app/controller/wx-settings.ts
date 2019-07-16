@@ -14,7 +14,8 @@ export class WxSettingsController extends BaseController {
 
   @sjg({
     path: '/',
-    api: 'wxSettings'
+    api: 'wxSettings',
+    summary: '微信设置'
   })
   async index(ctx: Context) {
     ctx.body = await this.wxSettingsService.find();

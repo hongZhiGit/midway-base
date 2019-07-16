@@ -1,5 +1,6 @@
 import { provide, scope, ScopeEnum, config } from 'midway';
 import { Sequelize } from 'sequelize-typescript';
+import * as _ from 'lodash';
 
 interface ISequelizeConfig {
   host: string;
@@ -46,11 +47,7 @@ export class DBContext {
         storage: ':memory:',
         modelPaths: [__dirname + `/*.model.${this.config.modelFile}`],
         modelMatch: (filename, member) => {
-          return (
-            filename.substring(0, filename.indexOf('.model')).replace('-', '') +
-              'model' ===
-            member.toLowerCase()
-          );
+          return _.endsWith(member, 'Model');
         },
         define: {
           timestamps: true,
