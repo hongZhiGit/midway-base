@@ -218,28 +218,51 @@ async create(param:ICreateIn):Promise<ICreateOut> {}
 https://github.com/sephirothwzc/midway-joi-swagger2
 
 ### transaction
+
+then、Promise.all
+
 ```
-    return this.DBContext.sequelize
-      .transaction()
-      .then(async (t: Transaction) => {
-        try {
-          // 新增专属粉丝记录
-          const result = await this.UserFanModel.create({
-            userId: fanIn.refereeId,
-            fanUserId: this.auth.id,
-            bindTime: new Date()
-          });
+  @inject('DBContext')
+  db: IDBContext;
 
-          // 删除潜在粉丝记录
-          await this.UserRefereeModel.destroy({
-            where: { userId: this.auth.id }
-          });
+  @inject()
+  OrderModel: IOrderModel;
 
-          t.commit();
-          return { id: result.id };
-        } catch (err) {
-          t.rollback();
-          return this.cthrow(500, err);
-        }
+  @inject()
+  OrderItemModel: IOrderItemModel;
+
+  @post('/')
+  async index(ctx: Context) {
+    const result = await this.db.sequelize
+      .transaction(t => {
+        // 在这里链接你的所有查询. 确保你返回他们.
+        return this.OrderModel.create(
+          {
+            code: '002',
+            cardId: '0000000001'
+          },
+          { transaction: t }
+        ).then(order => {
+          return this.OrderItemModel.create(
+            {
+              code:
+                '002-001',
+              orderId: order.id
+            },
+            { transaction: t }
+          );
+        });
+      })
+      .then(result => {
+        // 事务已被提交
+        // result 是 promise 链返回到事务回调的结果
+        return result;
+      })
+      .catch(err => {
+        // 事务已被回滚
+        // err 是拒绝 promise 链返回到事务回调的错误
+        return err;
       });
+    ctx.body = result;
+  }
 ```
