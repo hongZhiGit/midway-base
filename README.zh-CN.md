@@ -216,3 +216,30 @@ async create(param:ICreateIn):Promise<ICreateOut> {}
 
 集成 midway-joi-swagger2
 https://github.com/sephirothwzc/midway-joi-swagger2
+
+### transaction
+```
+    return this.DBContext.sequelize
+      .transaction()
+      .then(async (t: Transaction) => {
+        try {
+          // 新增专属粉丝记录
+          const result = await this.UserFanModel.create({
+            userId: fanIn.refereeId,
+            fanUserId: this.auth.id,
+            bindTime: new Date()
+          });
+
+          // 删除潜在粉丝记录
+          await this.UserRefereeModel.destroy({
+            where: { userId: this.auth.id }
+          });
+
+          t.commit();
+          return { id: result.id };
+        } catch (err) {
+          t.rollback();
+          return this.cthrow(500, err);
+        }
+      });
+```
