@@ -137,6 +137,44 @@ npx sequelize db:migrate
 14. private
 15. function param type in I[function]In、out I[function]Out
 16. 文件必须启用 vscode-fileheader
+17. 类作为名词存在，则 action 尽量采用动词，单一职责动词不需要追加名词。
+18. 建议命名如下
+
+```
+controller:
+@get('/')
+async index(ctx:Context) {}
+
+@get('/:id')
+async show(ctx:Context) {}
+
+// 或者采用joi query参数传递
+@get('/')
+async show(ctx:Context) {}
+
+@post('/')
+async create(ctx:Context) {}
+
+@put('/:id') // or body
+async update(ctx:Context) {}
+
+@del('/:id') // or query
+async destroy(ctx:Context) {}
+
+service:
+async findAll(param:IFindAllIn):Promise<Model[]> {}
+
+async findAndCountAll(param: IFindAndCountAllIn): Promise<IFindAndCountAllOut> {}
+
+... findOne ...
+
+async create(param:ICreateIn):Promise<ICreateOut> {}
+
+... update ...
+
+... destroy ...
+
+```
 
 ### DataBase
 
