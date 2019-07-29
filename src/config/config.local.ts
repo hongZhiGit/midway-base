@@ -98,6 +98,7 @@ export const joiSwagger = {
   title: 'Api平台',
   version: 'v1.0.0',
   description: '开发环境文档',
+  test: true,
   swaggerOptions: {
     securityDefinitions: {
       apikey: {

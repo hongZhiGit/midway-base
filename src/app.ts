@@ -10,11 +10,7 @@ import { wrapper } from 'midway-joi-swagger2';
 module.exports = (app: any) => {
   app.beforeStart(async () => {
     // 配置文件建议从config读取
-    wrapper(app, {
-      title: 'foo',
-      version: 'v1.0.0',
-      description: 'bar'
-    });
+    wrapper(app, app.config.joiSwagger);
     console.log('====================================');
     console.log('🚀  Your awesome APP is launching...');
     console.log('====================================');
@@ -26,12 +22,12 @@ module.exports = (app: any) => {
     console.log('====================================');
     console.log(
       `✅  http://${app.config.cluster.listen.hostname}:${
-        app.config.cluster.listen.port
+      app.config.cluster.listen.port
       }`
     );
     console.log(
       `✅  http://${app.config.cluster.listen.hostname}:${
-        app.config.cluster.listen.port
+      app.config.cluster.listen.port
       }/swagger-html`
     );
     console.log('✅  Your awesome APP launched');
