@@ -15,11 +15,11 @@ export const development = {
 
 export const sequelize = {
   dialect: 'mysql',
-  host: '153.136.16.133',
-  port: '3303',
-  database: 'dev',
+  host: '152.136.213.120',
+  port: '6606',
+  database: 'advokate_earn_dev',
   username: 'root',
-  password: 'Admin@333',
+  password: 'Admin@123',
   timezone: '+08:00',
   modelFile: 'ts',
   dialectOptions: {

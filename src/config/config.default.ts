@@ -1,3 +1,5 @@
+import * as path from 'path';
+
 export = (appInfo: any) => {
   const config: any = (exports = {});
 
@@ -5,7 +7,7 @@ export = (appInfo: any) => {
   config.keys = appInfo.name + '_1558664005392_5443';
 
   // add your config here
-  config.middleware = ['joiValidate'];
+  config.middleware = [];
 
   // cluster
   config.cluster = {
@@ -21,5 +23,26 @@ export = (appInfo: any) => {
     }
   };
 
+  config.view = {
+    root: [path.join(appInfo.baseDir, 'app/public')].join(','),
+    baseDir: 'app/public',
+    defaultExtension: '.nj',
+    defaultViewEngine: 'nunjucks',
+    mapping: {
+      '.nj': 'nunjucks'
+    }
+  };
+
+  // static
+  config.static = {
+    prefix: '/web/',
+    dir: path.join(appInfo.baseDir, 'app/public'),
+    gzip: true
+  };
+
+  config.bodyParser = {
+    jsonLimit: '20mb',
+    formLimit: '20mb'
+  };
   return config;
 };

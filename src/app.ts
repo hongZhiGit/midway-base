@@ -2,12 +2,13 @@
  * @Author: 吴占超
  * @Date: 2019-05-25 09:56:11
  * @Last Modified by: 吴占超
- * @Last Modified time: 2019-05-25 16:36:11
+ * @Last Modified time: 2019-08-09 16:14:19
  */
 import { IDBContext } from './lib/models/dbcontext';
 import { wrapper } from 'midway-joi-swagger2';
+import { Application } from 'midway';
 
-module.exports = (app: any) => {
+module.exports = (app: Application) => {
   app.beforeStart(async () => {
     // 配置文件建议从config读取
     wrapper(app, app.config.joiSwagger);
@@ -22,12 +23,12 @@ module.exports = (app: any) => {
     console.log('====================================');
     console.log(
       `✅  http://${app.config.cluster.listen.hostname}:${
-      app.config.cluster.listen.port
+        app.config.cluster.listen.port
       }`
     );
     console.log(
       `✅  http://${app.config.cluster.listen.hostname}:${
-      app.config.cluster.listen.port
+        app.config.cluster.listen.port
       }/swagger-html`
     );
     console.log('✅  Your awesome APP launched');

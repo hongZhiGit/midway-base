@@ -125,20 +125,21 @@ npx sequelize db:migrate
 2. 文件 小写中横线分词
 3. 类名 帕斯卡命名
 4. 接口名 I+帕斯卡命名
-5. 方法名 小驼峰
-6. 变量名 小驼峰 Model inject 帕斯卡
-7. 常量 全大写下划线分词
-8. 枚举 E+帕斯卡命名，枚举 item name 帕斯卡命名
-9. 命名要求简洁明了 英文命名，如果不明确命名可以采用，类型命名法 如: string1、string2 不允许其他无意义命名
-10. 代码层级不允许超过 4 级
-11. 鉴于换行等因素 function 不允许超过 60 行
-12. 路由命名优先 restful api 定向 api 采用 soa 命名 路由采用全小写中横线分词
-13. 注释 方法采用 document this 变量使用/\* \*/
-14. private
-15. function param type in I[function]In、out I[function]Out
-16. 文件必须启用 vscode-fileheader
-17. 类作为名词存在，则 action 尽量采用动词，单一职责动词不需要追加名词。
-18. 建议命名如下
+5. schema 命名 S+帕斯卡命名 In\S+帕斯卡命名 Out
+6. 方法名 小驼峰
+7. 变量名 小驼峰 Model inject 帕斯卡
+8. 常量 全大写下划线分词
+9. 枚举 E+帕斯卡命名，枚举 item name 帕斯卡命名
+10. 命名要求简洁明了 英文命名，如果不明确命名可以采用，类型命名法 如: string1、string2 不允许其他无意义命名
+11. 代码层级不允许超过 4 级
+12. 鉴于换行等因素 function 不允许超过 60 行
+13. 路由命名优先 restful api 定向 api 采用 soa 命名 路由采用全小写中横线分词
+14. 注释 方法采用 document this 变量使用/\* \*/
+15. private
+16. function param type in I[function]In、out I[function]Out
+17. 文件必须启用 vscode-fileheader
+18. 类作为名词存在，则 action 尽量采用动词，单一职责动词不需要追加名词。
+19. 建议命名如下
 
 ```
 controller:
