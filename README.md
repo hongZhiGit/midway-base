@@ -1,3 +1,5 @@
+心想事成，万事如意
+
 # midway-base
 
 base midway
